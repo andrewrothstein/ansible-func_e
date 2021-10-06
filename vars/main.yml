@@ -6,5 +6,6 @@ func_e_url: '{{ func_e_mirror }}/v{{ func_e_ver }}/{{ func_e_archive }}'
 func_e_checksum: '{{ func_e_checksums[func_e_ver][func_e_platform] }}'
 func_e_tmp_archive: /tmp/{{ func_e_archive }}
 func_e_install_dir: '{{ func_e_parent_install_dir }}/func-e_{{ func_e_ver }}'
+func_e_envoys_dir: '{{ func_e_parent_install_dir }}/envoys'
 func_e_exe: '{{ func_e_install_dir }}/func-e'
 func_e_link: '{{ func_e_parent_install_dir }}/bin/func-e'
