@@ -27,17 +27,17 @@ dl_ver() {
     local lchecksums="$DIR/${app}_${ver}_checksums.txt"
     if [ ! -e $lchecksums ];
     then
-        wget -q -O $lchecksums $url
+        curl -sSLf -o $lchecksums $url
     fi
 
     printf "  # %s\n" $url
     printf "  '%s':\n" $ver
 
-    dl $ver $app $lchecksums darwin arm64
     dl $ver $app $lchecksums darwin amd64
+    dl $ver $app $lchecksums darwin arm64
     dl $ver $app $lchecksums linux arm64
     dl $ver $app $lchecksums linux amd64
     dl $ver $app $lchecksums windows amd64 zip
 }
 
-dl_ver ${1:-0.7.0} func-e
+dl_ver ${1:-1.1.3} func-e

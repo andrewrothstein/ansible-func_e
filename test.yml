@@ -7,8 +7,9 @@
     func_e_envoy_install:
       - version: 1.14.2
       - version: 1.17.1
+      - version: 1.21.1
     func_e_envoy_link:
-      version: 1.14.2
+      version: 1.21.1
   roles:
   - role: '{{ playbook_dir }}'
   tasks:
