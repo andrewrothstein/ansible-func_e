@@ -87,7 +87,7 @@
         mode: 0755
 - name: linking envoy...
   when: func_e_envoy_link is defined
-  become: yes
+  become: true
   become_user: root
   file:
     src: '{{ func_e_envoys_dir }}/versions/{{ func_e_envoy_link.version }}/bin/envoy'
