@@ -1,5 +1,7 @@
 ---
 # vars file for func_e
+func_e_os: '{{ ansible_system | lower }}'
+func_e_arch: '{{ func_e_arch_map[ansible_architecture] }}'
 func_e_platform: '{{ func_e_os }}_{{ func_e_arch }}'
 func_e_archive: func-e_{{ func_e_ver }}_{{ func_e_platform }}.{{ func_e_archive_type | default("tar.gz") }}
 func_e_url: '{{ func_e_mirror }}/v{{ func_e_ver }}/{{ func_e_archive }}'

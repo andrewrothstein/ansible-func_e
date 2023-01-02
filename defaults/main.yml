@@ -2,8 +2,10 @@
 # defaults file for func_e
 func_e_ver: 1.1.3
 func_e_mirror: https://github.com/tetratelabs/func-e/releases/download
-func_e_os: linux
-func_e_arch: amd64
+func_e_arch_map:
+  aarch64: arm64
+  arm64: arm64
+  x86_64: amd64
 func_e_parent_install_dir: /usr/local
 
 #func_e_envoy_install:
@@ -12,7 +14,6 @@ func_e_parent_install_dir: /usr/local
 
 #func_e_envoy_link:
 #  version: 1.14.2
-
 
 func_e_checksums:
   # https://github.com/tetratelabs/func-e/releases/download/v0.7.0/func-e_0.7.0_checksums.txt
