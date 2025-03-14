@@ -1,6 +1,6 @@
 ---
 # defaults file for func_e
-func_e_ver: 1.1.3
+func_e_ver: 1.1.4
 func_e_mirror: https://github.com/tetratelabs/func-e/releases/download
 func_e_arch_map:
   aarch64: arm64
@@ -8,12 +8,12 @@ func_e_arch_map:
   x86_64: amd64
 func_e_parent_install_dir: /usr/local
 
-#func_e_envoy_install:
-#  - version: 1.14.2
-#  - version: 1.17.1
+# func_e_envoy_install:
+#   - version: 1.14.2
+#   - version: 1.17.1
 
-#func_e_envoy_link:
-#  version: 1.14.2
+# func_e_envoy_link:
+#   version: 1.14.2
 
 func_e_checksums:
   # https://github.com/tetratelabs/func-e/releases/download/v0.7.0/func-e_0.7.0_checksums.txt
@@ -40,3 +40,15 @@ func_e_checksums:
     linux_amd64: sha256:c6bbdafaf5c83f8844f5ee84ea764534e9fa7265e320bcc2dbdf9c49ec04a147
     # https://github.com/tetratelabs/func-e/releases/download/v1.1.3/func-e_1.1.3_windows_amd64.zip
     windows_amd64: sha256:23730e369ec9e8eb631f0fbcb17099314178e235bf30d60c4657f258f5f98abd
+  # https://github.com/tetratelabs/func-e/releases/download/v1.1.4/func-e_1.1.4_checksums.txt
+  '1.1.4':
+    # https://github.com/tetratelabs/func-e/releases/download/v1.1.4/func-e_1.1.4_darwin_amd64.tar.gz
+    darwin_amd64: sha256:b64abcef6c80a26bd3654c7138bb46f937a12530ff9c00b4afd7b06237ed1a6f
+    # https://github.com/tetratelabs/func-e/releases/download/v1.1.4/func-e_1.1.4_darwin_arm64.tar.gz
+    darwin_arm64: sha256:a95cc009d31696e485cfd58ca01e601de6f89f104ede4004de08988a94fede53
+    # https://github.com/tetratelabs/func-e/releases/download/v1.1.4/func-e_1.1.4_linux_arm64.tar.gz
+    linux_arm64: sha256:20cc062660c7aa874a5f55d5fc601ddab40f0c15d24973ebca4372202a0da73c
+    # https://github.com/tetratelabs/func-e/releases/download/v1.1.4/func-e_1.1.4_linux_amd64.tar.gz
+    linux_amd64: sha256:5ac7c0dbdef2c8122f83de860217674a3f88a72730beb06c8172600575c3717c
+    # https://github.com/tetratelabs/func-e/releases/download/v1.1.4/func-e_1.1.4_windows_amd64.zip
+    windows_amd64: sha256:041acfd10c0d006a37d0843270742a368fdf34e5fff5c5c2da5449f261d48df4

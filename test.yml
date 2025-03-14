@@ -1,20 +1,23 @@
 ---
-- hosts: all
+- name: Testing andrewrothstein.func_e (default)
+  hosts: all
   roles:
     - role: '{{ playbook_dir }}'
-- hosts: all
+- name: Testing andrewrothstein.func_e
+  hosts: all
   vars:
     func_e_envoy_install:
-      - version: 1.14.2
-      - version: 1.17.1
       - version: 1.21.1
+      - version: 1.33.0
     func_e_envoy_link:
-      version: 1.21.1
+      version: 1.33.0
   roles:
-  - role: '{{ playbook_dir }}'
+    - role: '{{ playbook_dir }}'
   tasks:
-  - command: /usr/local/bin/envoy --version
-    register: func_e_test_output
-  - name: envoy --version
-    debug:
-      msg: '{{ func_e_test_output.stdout }}'
+    - name: Executing 'envoy --version'
+      ansible.builtin.command: envoy --version
+      changed_when: false
+      register: func_e_test_output
+    - name: Output of 'envoy --version'
+      ansible.builtin.debug:
+        msg: '{{ func_e_test_output.stdout }}'

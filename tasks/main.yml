@@ -1,8 +1,9 @@
 ---
-- include_role:
-    name: andrewrothstein.unarchive-deps
-- name: resolve platform specific vars
-  include_vars: '{{ item }}'
+- name: Installing andrewrothstein.unarchivedeps
+  ansible.builtin.include_role:
+    name: andrewrothstein.unarchivedeps
+- name: Resolve platform specific vars
+  ansible.builtin.include_vars: '{{ item }}'
   with_first_found:
     - files:
         - '{{ ansible_distribution }}-{{ ansible_distribution_release }}.yml'
@@ -11,87 +12,89 @@
       skip: true
       paths:
         - '{{ role_path }}/vars'
-- name: check for install in {{ func_e_exe }}
-  stat:
+- name: Check for install in {{ func_e_exe }}
+  ansible.builtin.stat:
     path: '{{ func_e_exe }}'
   register: func_e_binary
   changed_when: false
-- when: not func_e_binary.stat.exists
+- name: Downloading and installing func_e
+  when: not func_e_binary.stat.exists
   block:
-    - name: mkdir {{ func_e_install_dir }}
+    - name: Mkdir {{ func_e_install_dir }}
       become: true
       become_user: root
-      file:
+      ansible.builtin.file:
         path: '{{ func_e_install_dir }}'
         state: directory
-        mode: 0755
-    - name: downloading {{ func_e_url }}
+        mode: '755'
+    - name: Downloading {{ func_e_url }}
       become: true
       become_user: root
-      get_url:
+      ansible.builtin.get_url:
         url: '{{ func_e_url }}'
         dest: '{{ func_e_tmp_archive }}'
-        mode: 0644
+        mode: '644'
         checksum: '{{ func_e_checksum }}'
-    - name: unarchive {{ func_e_tmp_archive }}
+    - name: Unarchive {{ func_e_tmp_archive }}
       become: true
       become_user: root
-      unarchive:
+      ansible.builtin.unarchive:
         src: '{{ func_e_tmp_archive }}'
         dest: '{{ func_e_install_dir }}'
         creates: '{{ func_e_exe }}'
   always:
-    - name: rm {{ func_e_tmp_archive }}
+    - name: Rm -f {{ func_e_tmp_archive }}
       become: true
       become_user: root
-      file:
+      ansible.builtin.file:
         path: '{{ func_e_tmp_archive }}'
         state: absent
 
-- name: linking {{ func_e_link }} to {{ func_e_exe }}
+- name: Linking {{ func_e_link }} to {{ func_e_exe }}
   become: true
   become_user: root
-  file:
+  ansible.builtin.file:
     src: '{{ func_e_exe }}'
     dest: '{{ func_e_link }}'
     state: link
 
-- when: func_e_envoy_install is defined
+- name: Installing envoy proxies...
+  when: func_e_envoy_install is defined
   block:
-    - name: mkdir {{ func_e_envoys_dir }}
+    - name: Mkdir {{ func_e_envoys_dir }}
       become: true
       become_user: root
-      file:
+      ansible.builtin.file:
         path: '{{ func_e_envoys_dir }}'
         state: directory
-        mode: 0755
-    - name: installing envoy proxy distributions...
+        mode: '755'
+    - name: Installing envoy proxy distributions...
       become: true
       become_user: root
       with_items: '{{ func_e_envoy_install }}'
-      command: '{{ func_e_exe }} --home-dir {{ func_e_envoys_dir }} use {{ item.version }}'
+      ansible.builtin.command: '{{ func_e_exe }} --home-dir {{ func_e_envoys_dir }} use {{ item.version }}'
       args:
         creates: '{{ func_e_envoys_dir }}/versions/{{ item.version }}/bin/envoy'
-    - name: chmod 755 {{ func_e_envoys_dir }}/versions
+    - name: Chmod 755 {{ func_e_envoys_dir }}/versions
       become: true
       become_user: root
-      file:
+      ansible.builtin.file:
         path: '{{ func_e_envoys_dir }}/versions'
         state: directory
-        mode: 0755
-    - name: chmod 755 {{ func_e_envoys_dir }}/versions installs
+        mode: '755'
+    - name: Chmod 755 {{ func_e_envoys_dir }}/versions installs
       become: true
       become_user: root
       with_items: '{{ func_e_envoy_install }}'
-      file:
+      ansible.builtin.file:
         path: '{{ func_e_envoys_dir }}/versions/{{ item.version }}'
         state: directory
-        mode: 0755
-- name: linking envoy...
+        mode: '755'
+- name: Linking envoy...
   when: func_e_envoy_link is defined
   become: true
   become_user: root
-  file:
+  ansible.builtin.file:
     src: '{{ func_e_envoys_dir }}/versions/{{ func_e_envoy_link.version }}/bin/envoy'
     dest: '{{ func_e_parent_install_dir }}/bin/envoy'
     state: link

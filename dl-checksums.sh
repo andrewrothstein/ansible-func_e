@@ -40,4 +40,4 @@ dl_ver() {
     dl $ver $app $lchecksums windows amd64 zip
 }
 
-dl_ver ${1:-1.1.3} func-e
+dl_ver ${1:-1.1.4} func-e
